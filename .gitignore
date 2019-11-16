@@ -195,4 +195,3 @@ dmypy.json
 .pyre/
 
 # CUSTOM GITIGNORE FILES
-server.py
