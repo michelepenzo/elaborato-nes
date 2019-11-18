@@ -12,5 +12,6 @@
 - rimuovere server.py 
 
 ## SERVER
+- cambiare il valore di host, fare in modo che sia automatico
 
 ## CLIENT
