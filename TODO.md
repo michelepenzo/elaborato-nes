@@ -15,3 +15,5 @@
 - cambiare il valore di host, fare in modo che sia automatico
 
 ## CLIENT
+- connessione al server, con try-except.
+- inviare i dati del mouse --> ci sarà qualcosa di già fatto

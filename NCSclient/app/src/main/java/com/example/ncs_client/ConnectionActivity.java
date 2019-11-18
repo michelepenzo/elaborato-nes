@@ -22,7 +22,9 @@ public class ConnectionActivity extends AppCompatActivity {
         btn_connect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // TODO fai la connessione, con un try excpet solamente se è giusta allora manda dati, altrimenti resta qui
+                // TODO connessione TCP
+
+
 
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity( intent );
