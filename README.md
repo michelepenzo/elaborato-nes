@@ -7,7 +7,7 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 Server: SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
 Client: Smartphone Android <br><br>
 
-Si deve essere collegati alla stessa rete. Se si esegue il codice essendo collegati con la Wifi di Univr non funziona, quindi fare hotspot con il proprio smartphone. <br>
+Si deve essere collegati alla stessa rete WiFi. <br>
 Successivamente eseguire il server e poi il client, installando il file APK sul proprio smartphone Android. <br> 
 Seguire i passi successivi per una spiegazione dettagliata.
 

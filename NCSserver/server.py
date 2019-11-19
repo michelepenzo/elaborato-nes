@@ -5,15 +5,14 @@ __author__ = 'Michele Penzo'
 __version__ = '1.0'
 
 import socket
-import netifaces as ni
+import subprocess
 
 def get_data():
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	# create socket
 
-	host =  socket.gethostbyname( socket.gethostname() )  # get my IP
-	host = '192.168.1.9'
-	port = 0	# first free port
+	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')
+	port = 0	# free port
 
 	s.bind((host, port))
 
@@ -26,8 +25,8 @@ def get_data():
 	    try:
 	        data = conn.recv(1024)
 	        if not data: break
-	        print ("Client Says: " + str(data))
-	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
+	        print ("Client Says: " + str(data).decode('ascii'))
+	        conn.sendall(str.encode("SERVER_RES: " + str(data).decode('ascii')))
 	    except socket.error:
 	        print ("Error Occured.")
 	        break
