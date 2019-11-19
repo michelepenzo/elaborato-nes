@@ -12,6 +12,7 @@
 - ricevere coordinate x y e con 'xdootool x y' muovi il mouse
 
 ## CLIENT
-- connessione al server, con try-except.
+- cambiare la porta, farla inserire come l'indirizzo IP
+- rimuovere la roba in alto a sx
 - inviare i dati del mouse --> ci sarà qualcosa di già fatto
 - inviare coordinate x y
