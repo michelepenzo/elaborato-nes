@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# coding=utf-8
 
 __author__ = 'Michele Penzo'
 __version__ = '1.0'
@@ -19,13 +18,21 @@ def get_data():
 	s.listen(1)
 	print("Started server!\nListeing to {}:{}".format(host, s.getsockname()[1] ))
 	conn, addr = s.accept()
-	print('Device connected:', addr)	
+	print('Device connected')	
 	while True:
 
 	    try:
 	        data = conn.recv(1024)
-	        if not data: break
+	        if not data:
+	        	print('no data')
+	        	break
+
+	        print('data')
+	        
 	        print ("Client Says: " + str(data).decode('ascii'))
+
+	        # TODO : parserizzare i file con switch, se 1 .., se 2..., ecc
+
 	        conn.sendall(str.encode("SERVER_RES: " + str(data).decode('ascii')))
 	    except socket.error:
 	        print ("Error Occured.")
