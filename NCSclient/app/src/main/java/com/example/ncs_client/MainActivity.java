@@ -2,6 +2,8 @@
 package com.example.ncs_client;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,21 +27,34 @@ public class MainActivity extends AppCompatActivity {
         
         //Display a pop-up requesting the target machine IP
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Target Machines IP");
+
+        Context context = builder.getContext();
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        builder.setTitle("Inserisci i valori di:");
 
         // Set up the input
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_PHONE);
-        builder.setView(input);
+        final EditText ip_input = new EditText(this);
+        ip_input.setInputType(InputType.TYPE_CLASS_PHONE);
+        ip_input.setHint("Indirizzo IP");
+        layout.addView(ip_input);
+
+        final EditText port_input = new EditText(this);
+        port_input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        port_input.setHint("Porta");
+        layout.addView(port_input);
         //Set the default text to the first 2 parts of the IP
         //input.setText("192.168.");
-        
+
+        builder.setView(layout);
+
         // Set up the buttons
-        builder.setPositiveButton("Connect", new DialogInterface.OnClickListener() { 
+        builder.setPositiveButton("Connetti", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Enter the IP to the client
-                connectClient(input.getText().toString());
+                connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()));
             }
         });
 
@@ -69,9 +85,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     
-    private void connectClient(String ip) {
+    private void connectClient(String ip, int port) {
         //Create a new client
-        client = new ClientSocket(ip, 54169);    // TODO fare in modo che sia statica
+        ip="192.168.1.9";
+        client = new ClientSocket(ip, port);
         //Start the client connection in the background
         client.execute();
         

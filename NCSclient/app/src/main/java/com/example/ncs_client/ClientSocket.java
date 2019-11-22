@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 
 public class ClientSocket extends AsyncTask<String, Void, String> {
     private Socket socket = null;
-    private DataOutputStream streamOut = null;
+    private OutputStream streamOut = null; // TODO far combaciare i tipi di java con il server
     private String serverName;
     private int serverPort;
     private boolean connected = false;
@@ -25,6 +25,7 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
             {
                 //Convert the string into a byte array for C# to read
                 byte[] msgBytes = msg.getBytes();
+                // TODO controllare i tipi di Output stream
                 //Send off the message
                 streamOut.write(msgBytes);
                 streamOut.flush();
