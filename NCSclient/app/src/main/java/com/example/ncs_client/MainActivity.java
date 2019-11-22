@@ -109,13 +109,16 @@ public class MainActivity extends AppCompatActivity {
         int y = (int)event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                client.sendMessage(("0#" + x + "#" + y + "#"));
+                //client.sendMessage(("0#" + x + "#" + y + "#"));
+                client.sendMessage("0");
                 break;
             case MotionEvent.ACTION_MOVE:
-                client.sendMessage(("1#" + x + "#" + y + "#"));
+                //client.sendMessage(("1#" + x + "#" + y + "#"));
+                client.sendMessage("1");
                 break;
             case MotionEvent.ACTION_UP:
-                client.sendMessage(("2#" + x + "#" + y + "#"));
+                //client.sendMessage(("2#" + x + "#" + y + "#"));
+                client.sendMessage("2");
                 break;
         }
         

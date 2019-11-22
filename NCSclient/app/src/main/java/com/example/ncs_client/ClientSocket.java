@@ -18,17 +18,19 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
         serverPort = port;
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(String msg) throws NullPointerException{
 
         if(connected) {
             try
             {
                 //Convert the string into a byte array for C# to read
                 byte[] msgBytes = msg.getBytes();
-                // TODO controllare i tipi di Output stream
+                System.out.println("-----------------------------------------------------------------------------");
                 //Send off the message
                 streamOut.write(msgBytes);
+                System.out.println("-----------------------------------------------------------------------------");
                 streamOut.flush();
+                System.out.println("-----------------------------------------------------------------------------");
             }
             catch(IOException ioe) {
                 System.out.println("Sending error: " + ioe.getMessage());
