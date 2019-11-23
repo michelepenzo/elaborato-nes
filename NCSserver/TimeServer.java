@@ -15,18 +15,20 @@ public class TimeServer {
  
             System.out.println("PORT " + serverSocket.getLocalPort());
 
-            Socket socket = serverSocket.accept();
 
-            System.out.println("New client connected");
+
+                Socket socket = serverSocket.accept();
+
+                System.out.println("New client connected");
+
 
 
             while (true) {
-
                 //System.out.println("-----------------------------------------------------------------------------");
                 OutputStream output = socket.getOutputStream();
                 //System.out.println("-----------------------------------------------------------------------------");
                 PrintWriter writer = new PrintWriter(output, true);
-                //System.out.println("-----------------------------------------------------------------------------");
+                
                 writer.println(new Date().toString());
             }
  

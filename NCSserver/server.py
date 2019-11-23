@@ -27,13 +27,11 @@ def get_data():
 	        	print('no data')
 	        	break
 
-	        print('data')
-	        
-	        print ("Client Says: " + str(data).decode('ascii'))
+	        print (str(data.decode('ascii')))
 
 	        # TODO : parserizzare i file con switch, se 1 .., se 2..., ecc
 
-	        conn.sendall(str.encode("SERVER_RES: " + str(data).decode('ascii')))
+	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
 	    except socket.error:
 	        print ("Error Occured.")
 	        break

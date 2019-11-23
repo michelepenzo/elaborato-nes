@@ -7,3 +7,4 @@
 ## CLIENT
 - inviare i dati del mouse --> ci sarà qualcosa di già fatto
 - inviare coordinate x y
+- rimuovere IP statico !
