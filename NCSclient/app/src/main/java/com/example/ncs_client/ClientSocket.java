@@ -5,9 +5,12 @@ import java.io.*;
 
 import android.os.AsyncTask;
 
+import android.os.StrictMode;
+
+
 public class ClientSocket extends AsyncTask<String, Void, String> {
     private Socket socket = null;
-    private OutputStream streamOut = null; // TODO far combaciare i tipi di java con il server
+    private OutputStream streamOut = null;
     private String serverName;
     private int serverPort;
     private boolean connected = false;
@@ -23,14 +26,9 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
         if(connected) {
             try
             {
-                //Convert the string into a byte array for C# to read
                 byte[] msgBytes = msg.getBytes();
-                System.out.println("-----------------------------------------------------------------------------");
-                //Send off the message
                 streamOut.write(msgBytes);
-                System.out.println("-----------------------------------------------------------------------------");
                 streamOut.flush();
-                System.out.println("-----------------------------------------------------------------------------");
             }
             catch(IOException ioe) {
                 System.out.println("Sending error: " + ioe.getMessage());
