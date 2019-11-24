@@ -14,7 +14,8 @@ Eseguire in ordine:
 
 ### Eseguire il Server
 ```
-apt-get install xdotool -y
+apt-get install python3-pip python3-tk python3-dev -y
+pip3 install pyautogui
 python3 NCSserver/server.py
 ```
 
