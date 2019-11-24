@@ -5,6 +5,8 @@ __version__ = '1.0'
 
 import socket
 import subprocess
+import pyautogui
+
 
 def get_data():
 
@@ -16,9 +18,15 @@ def get_data():
 	s.bind((host, port))
 
 	s.listen(1)
-	print("Started server!\nListeing to {}:{}".format(host, s.getsockname()[1] ))
+
+	print('IP address: '+ str(host))
+	print('Port: '+ str(s.getsockname()[1]))
+
 	conn, addr = s.accept()
 	print('Device connected')	
+
+	cmd = list()
+
 	while True:
 
 	    try:
@@ -27,9 +35,23 @@ def get_data():
 	        	print('no data')
 	        	break
 
-	        print (str(data.decode('ascii')))
+	        cmd=str(data.decode('ascii')).split('#')
 
-	        # TODO : parserizzare i file con switch, se 1 .., se 2..., ecc
+	        if cmd[0] is '0':
+	        	# action down
+	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
+	        	print('x: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
+	        elif cmd[0] is '1':
+	        	# action move
+	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
+	        	print('x: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
+	        	
+	        elif cmd[0] is '2':
+	        	# action up
+	        	#pyautogui.click(int(cmd[1]), int(cmd[2]))
+	        	pass
+	        else:
+	        	pass
 
 	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
 	    except socket.error:

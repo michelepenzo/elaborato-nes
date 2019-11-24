@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         ip="192.168.1.9";
         client = new ClientSocket(ip, port);
         //Start the client connection in the background
-        client.execute();
+        client.execute();if cmd[0] is '1':
 
     }
 
