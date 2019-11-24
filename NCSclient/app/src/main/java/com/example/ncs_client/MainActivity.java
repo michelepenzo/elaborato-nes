@@ -28,11 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+/*
         Button btnLeft = (Button) findViewById(R.id.btn_leftClick);
         Button btnRight = (Button) findViewById(R.id.btn_rightClick);
 
 
+
+ */
         //Display a pop-up requesting the target machine IP
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -65,13 +67,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
-
+/*
         btnLeft.setOnClickListener(btnLeft_onClick);
         btnRight.setOnClickListener(btnRight_onClick);
 
+
+ */
     }
 
-
+/*
     public OnClickListener btnLeft_onClick = new OnClickListener() {
         public void onClick(final View v) {
             client.sendMessage(("2#0#0#"));
@@ -84,12 +88,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+ */
     private void connectClient(String ip, int port) {
         //Create a new client
         ip="192.168.1.9";
         client = new ClientSocket(ip, port);
         //Start the client connection in the background
-        client.execute();if cmd[0] is '1':
+        client.execute();
 
     }
 
