@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
  */
     private void connectClient(String ip, int port) {
         //Create a new client
-        ip="192.168.1.9";
+        //ip="192.168.1.9";
         client = new ClientSocket(ip, port);
         //Start the client connection in the background
         client.execute();
