@@ -36,15 +36,15 @@ def get_data():
 	        	break
 
 	        cmd=str(data.decode('ascii')).split('#')
-
+	        
 	        if cmd[0] is '0':
 	        	# action down
 	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
-	        	print('x: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
+	        	print('0: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
 	        elif cmd[0] is '1':
 	        	# action move
 	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
-	        	print('x: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
+	        	print('1: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
 	        	
 	        elif cmd[0] is '2':
 	        	# action up
