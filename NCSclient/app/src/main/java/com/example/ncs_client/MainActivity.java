@@ -16,10 +16,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
 
     ClientSocket client;
+    private Switch enable_click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
         Button btnLeft = (Button) findViewById(R.id.btn_leftClick);
         Button btnRight = (Button) findViewById(R.id.btn_rightClick);
 
-
-
  */
+        enable_click = (Switch) findViewById(R.id.switch2);
+
+        // parto con lo switch abilitato
+        enable_click.setText("Solo movimento");
+        enable_click.setEnabled(true);
+
         //Display a pop-up requesting the target machine IP
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -112,8 +118,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         int x = (int)event.getX();
         int y = (int)event.getY();
+
+        /*
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+
                 client.sendMessage(("0#" + x + "#" + y + "#"));
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -122,6 +131,18 @@ public class MainActivity extends AppCompatActivity {
             case MotionEvent.ACTION_UP:
                 //client.sendMessage(("2#" + x + "#" + y + "#"));
                 break;
+        }
+
+         */
+
+        // non ci interessa che operazione vogliamo fare, voglio solamente il movimento
+        if(enable_click.isChecked()) {
+            enable_click.setText("Movimento");
+            client.sendMessage(("0#" + x + "#" + y + "#")); // voglio muovermi
+        }
+        else {
+            enable_click.setText("Scrittura");
+            client.sendMessage(("1#" + x + "#" + y + "#")); // voglio scrivere
         }
 
     return false;
