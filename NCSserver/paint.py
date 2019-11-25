@@ -1,9 +1,13 @@
+#!/usr/bin/python3
+
+__author__ = 'Michele Penzo'
+__version__ = '1.0'
+
 from tkinter import *
 from tkinter.colorchooser import askcolor
 
 
 class Paint(object):
-
 
     default_pen_size=2.0
     default_color='black'
@@ -20,8 +24,10 @@ class Paint(object):
     def setup(self):
         self.old_x = None
         self.old_y = None
+
         self.line_width = self.default_pen_size
         self.color = self.default_color
+        
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
 

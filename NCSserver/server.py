@@ -7,9 +7,7 @@ import socket
 import subprocess
 import pyautogui
 
-
-def get_data():
-
+def Server():
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	# create socket
 
 	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')
@@ -28,8 +26,8 @@ def get_data():
 	cmd = list()
 
 	while True:
-
 	    try:
+
 	        data = conn.recv(1024)
 	        if not data:
 	        	print('no data')
@@ -37,23 +35,15 @@ def get_data():
 
 	        cmd=str(data.decode('ascii')).split('#')
 	        
-	        if cmd[0] is '0':
-	        	# action down
+	        if cmd[0] is '0':	# action down
 	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
-	        	print('0: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
-	        elif cmd[0] is '1':
-	        	# action move
+	        	print('0')
+	        else:	# action move
 	        	pyautogui.click(int(cmd[1]), int(cmd[2]))
-	        	print('1: ' + str(cmd[1])+' ---- y :'+ str(cmd[2]))
-	        	
-	        elif cmd[0] is '2':
-	        	# action up
-	        	#pyautogui.click(int(cmd[1]), int(cmd[2]))
-	        	pass
-	        else:
-	        	pass
-
+	        	print('1')
+	   
 	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
+
 	    except socket.error:
 	        print ("Error Occured.")
 	        break
@@ -62,5 +52,4 @@ def get_data():
 
 
 if __name__ == '__main__':
-    get_data()
-    # lsof -n -i
+    Server()
