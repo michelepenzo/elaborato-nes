@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 
 __author__ = 'Michele Penzo'
-__version__ = '1.0'
 
 from tkinter import *
 from tkinter.colorchooser import askcolor
-from server import *
 
 class Paint(object):
 

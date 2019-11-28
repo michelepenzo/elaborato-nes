@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 __author__ = 'Michele Penzo'
-__version__ = '1.0'
 
 import socket
 import subprocess
@@ -40,7 +39,7 @@ def Server():
 	        if cmd[0] is '0':	# solo movimento
 	        	pyautogui.moveTo(int(cmd[1]), int(cmd[2]))
 	        else:	# action scrittura
-	        	pyautogui.click(int(cmd[1]), int(cmd[2]), button='left')	# TODO 
+	        	pyautogui.click(int(cmd[1]), int(cmd[2]), button='left')	# TODO
 	   
 	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
 
