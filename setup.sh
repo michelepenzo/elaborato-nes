@@ -33,7 +33,7 @@ fi
 
 # Esecuzione su due terminali dei programmi
 
-konsole -e python3 $(pwd)/NCSserver/paint.py &
-konsole -e python3 $(pwd)/NCSserver/server.py
+#konsole -e python3 $(pwd)/NCSserver/paint.py &
+#konsole -e python3 $(pwd)/NCSserver/server.py
 
-exit
+#exit

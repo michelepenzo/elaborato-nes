@@ -7,15 +7,17 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 - Server: SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
 - Client: Smartphone Android <br>
 - Dispositivi connessi alla stessa rete WiFi. <br><br>
+- Eseguire il file:
+```
+./setup.sh
+```
 
 Eseguire in ordine:
 - server: guardando i valori dell'indirizzo IP e della porta,
 - client: inserendo i valori ottenuti dal server.
 
 ### Eseguire il Server
-```
-bash launch.sh
-```
+...
 
 ### Eseguire il Client
 Installare il file ``.apk`` sul proprio dispositivo, aprirlo e inserire i valori.
