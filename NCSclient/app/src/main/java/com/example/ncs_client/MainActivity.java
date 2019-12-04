@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     ClientSocket client;
     private Switch enable_click;
-
+    private int old_x=0, old_y=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-/*
+
         Button btnLeft = (Button) findViewById(R.id.btn_leftClick);
         Button btnRight = (Button) findViewById(R.id.btn_rightClick);
 
- */
-        enable_click = (Switch) findViewById(R.id.switch2);
-
-        // parto con lo switch abilitato
-        enable_click.setText("Solo movimento");
-        enable_click.setEnabled(true);
 
         //Display a pop-up requesting the target machine IP
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -73,15 +68,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
-/*
+
         btnLeft.setOnClickListener(btnLeft_onClick);
         btnRight.setOnClickListener(btnRight_onClick);
 
-
- */
     }
 
-/*
+
     public OnClickListener btnLeft_onClick = new OnClickListener() {
         public void onClick(final View v) {
             client.sendMessage(("2#0#0#"));
@@ -95,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
- */
+
     private void connectClient(String ip, int port) {
         //Create a new client
         //ip="192.168.1.9";
@@ -116,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean onTouchEvent(MotionEvent event) {
+
+        // nuovi valori della x
         int x = (int)event.getX();
         int y = (int)event.getY();
 
-        /*
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-
                 client.sendMessage(("0#" + x + "#" + y + "#"));
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -133,17 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-         */
-
-        // non ci interessa che operazione vogliamo fare, voglio solamente il movimento
-        if(enable_click.isChecked()) {
-            enable_click.setText("Movimento");
-            client.sendMessage(("0#" + x + "#" + y + "#")); // voglio muovermi
-        }
-        else {
-            enable_click.setText("Scrittura");
-            client.sendMessage(("1#" + x + "#" + y + "#")); // voglio scrivere
-        }
 
     return false;
     }
