@@ -6,12 +6,18 @@ import socket
 import subprocess
 import pyautogui
 
-
 def Server():
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	# create socket
 
-	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')	# stampo l'indirzzo ip locale
-	port = 0	# free port
+	# valori dello schermo
+	MAX_SIZE_X, MAX_SIZE_Y = pyautogui.size()
+
+	# valori iniziali di x e y
+	x, y = pyautogui.position()
+
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
+
+	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')  # stampo l'indirzzo ip locale
+	port = 0    # free port
 
 	s.bind((host, port))
 
@@ -21,34 +27,49 @@ def Server():
 	print('Port: '+ str(s.getsockname()[1]))
 
 	conn, addr = s.accept()
-	print('Device connected')	
+	print('Device connected')   
 
 	cmd = list()
-
+	pyautogui.FAILSAFE = False
 	while True:
-	    try:
+		try:
 
-	        data = conn.recv(1024)	# ricevo il dato dall'app
-	        if not data:
-	        	print('no data')
-	        	break
+			data = conn.recv(1024)  # ricevo il dato dall'app
+			if not data:
+				print('no data')
+				break
 
-	        cmd=str(data.decode('ascii')).split('#')	# splitto per vedere il comando che voglio utilizzare
-	        
-	        # ricevo i dati e mi muovo all'interno della grafica
-	        if cmd[0] is '0':	# solo movimento
-	        	pyautogui.moveTo(int(cmd[1]), int(cmd[2]))
-	        else:	# action scrittura
-	        	pyautogui.click(int(cmd[1]), int(cmd[2]), button='left')	# TODO
-	   
-	        conn.sendall(str.encode("SERVER_RES: " + str(data)))
+			cmd=str(data.decode('ascii')).split('#')    # splitto per vedere il comando che voglio utilizzare
+			
+			if cmd[0] is '0':
+				# action down
+				x,y = int(cmd[1]), int(cmd[2])
+				pyautogui.moveTo(x, y)
+				print('MOVE --- x: ' + str(x)+' ---- y :'+ str(y))
 
-	    except socket.error:
-	        print ("Error Occured.")
-	        break
+			elif cmd[0] is '1':
+				# action move
+				x,y = int(cmd[1]), int(cmd[2])
+				pyautogui.dragTo(x, y, button='left')
+				#pyautogui.moveTo(x, y)
+				print('DRAG --- x: ' + str(x)+' ---- y :'+ str(y))
+
+			elif cmd[0] is '2':
+				pyautogui.click(x, y)
+				print('LEFT --- x: ' + str(x)+' ---- y :'+ str(y))  
+
+			elif cmd[0] is '3':
+				pyautogui.click(x, y, button='right')
+				print('RIGHT --- x: ' + str(x)+' ---- y :'+ str(y))             
+
+			conn.sendall(str.encode("SERVER_RES: " + str(data)))
+
+		except socket.error:
+			print ("Error Occured.")
+			break
 
 	conn.close()
 
 
 if __name__ == '__main__':
-    Server()
+	Server()

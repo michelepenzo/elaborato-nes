@@ -16,13 +16,13 @@ class Paint(object):
         self.root=Tk()
         self.root.title('NCS Server')
         
-        '''
+        
         _width=self.root.winfo_screenwidth()
         _height=self.root.winfo_screenheight()
         '''
         _width=600
         _height=800
-
+        '''
         self.c = Canvas(self.root, bg='white', width=_width, height=_height)
         self.c.grid(row=1, columnspan=5)
         
