@@ -5,8 +5,8 @@
 
 ## SERVER
 - inserire un modo testuale per i ritardi e il guasto del canale (PARTE IMPORTANTE) --> modalità di inserimento dei guasti in TCP
-- controllare corrispondeza con android
 
 ## CLIENT
+- settare valore IP
 - premere il mouse
-- cambiare il valore del testo dello switch
+- inviare più punti, cosi va a scatti

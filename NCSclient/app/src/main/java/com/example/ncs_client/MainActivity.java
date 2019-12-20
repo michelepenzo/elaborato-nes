@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void connectClient(String ip, int port) {
         //Create a new client
-        //ip="192.168.1.9";
+        ip="192.168.1.9";
         client = new ClientSocket(ip, port);
         //Start the client connection in the background
         client.execute();
@@ -106,26 +106,24 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     public boolean onTouchEvent(MotionEvent event) {
 
         // nuovi valori della x
         int x = (int)event.getX();
         int y = (int)event.getY();
 
+
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                client.sendMessage(("0#" + x + "#" + y + "#"));
-                break;
+            //case MotionEvent.ACTION_DOWN:
+            //    client.sendMessage(("0#" + x + "#" + y + "#"));
+            //    break;
             case MotionEvent.ACTION_MOVE:
                 client.sendMessage(("1#" + x + "#" + y + "#"));
                 break;
-            case MotionEvent.ACTION_UP:
-                //client.sendMessage(("2#" + x + "#" + y + "#"));
-                break;
+            //case MotionEvent.ACTION_UP:
+            //client.sendMessage(("2#" + x + "#" + y + "#"));
+            //break;
         }
-
 
     return false;
     }
