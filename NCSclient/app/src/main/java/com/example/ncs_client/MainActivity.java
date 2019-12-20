@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     ClientSocket client;
     private Switch enable_click;
-    private int old_x=0, old_y=0;
+    private int pos=0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             //    break;
             case MotionEvent.ACTION_MOVE:
                 client.sendMessage(("1#" + x + "#" + y + "#"));
+                System.out.println(x + "---" + y);
                 break;
             //case MotionEvent.ACTION_UP:
             //client.sendMessage(("2#" + x + "#" + y + "#"));
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     return false;
     }
+
 
 }
 
