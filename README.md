@@ -17,7 +17,9 @@ Eseguire in ordine:
 - client: inserendo i valori ottenuti dal server.
 
 ### Eseguire il Server
-...
+```
+python3 NCSserver/server.py
+```
 
 ### Eseguire il Client
 Installare il file ``.apk`` sul proprio dispositivo, aprirlo e inserire i valori.

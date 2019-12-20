@@ -9,4 +9,3 @@
 ## CLIENT
 - settare valore IP
 - premere il mouse
-- inviare più punti, cosi va a scatti

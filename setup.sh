@@ -31,9 +31,9 @@ else
     pip3 install pyautogui
 fi
 
-# Esecuzione su due terminali dei programmi
+sudo apt-get install gnome-paint
 
-#konsole -e python3 $(pwd)/NCSserver/paint.py &
-#konsole -e python3 $(pwd)/NCSserver/server.py
+gnome-paint
+
 
 #exit
