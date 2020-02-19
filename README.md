@@ -6,7 +6,7 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 
 - Server: SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
 - Client: Smartphone Android <br>
-- Dispositivi connessi alla stessa rete WiFi. <br><br>
+- Dispositivi connessi alla stessa rete WiFi. <br>
 - Eseguire il file:
 ```
 ./setup.sh

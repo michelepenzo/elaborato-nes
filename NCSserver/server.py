@@ -12,7 +12,8 @@ def Server():
 	MAX_SIZE_X, MAX_SIZE_Y = pyautogui.size()
 
 	# valori iniziali di x e y
-	x1, y1 = pyautogui.position()
+	x1, y1 = 0, 0
+	old_x1, old_y1 = pyautogui.position()
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
 
@@ -43,24 +44,24 @@ def Server():
 			
 			x1, y1 = int(cmd[1]), int(cmd[2])
 
-			print('x1: ' + str(x1)+' ---- y1 :'+ str(y1))
-
 			if cmd[0] is '0':	# action down
-				pyautogui.moveTo(x1, y1)
+				pyautogui.moveTo(old_x1, old_y1)
 			
 			elif cmd[0] is '1':	# action move
-				pyautogui.dragTo(x1, y1, button='left')
+				pyautogui.dragTo(old_x1, old_y1, button='left')
 				
 			elif cmd[0] is '2':
-				pyautogui.click(x1, y1, button='left')
+				pyautogui.click(pyautogui.position(), button='left')
 				
 			elif cmd[0] is '3':
-				pyautogui.click(x1, y1, button='right')
+				pyautogui.click(pyautogui.position(), button='right')
 			
 			conn.sendall(str.encode("SERVER_RES: " + str(data)))
 
-		except socket.error:
-			print ("Error Occured.")
+			old_x1, old_y1 = x1 , y1
+
+		except (socket.error, KeyboardInterrupt) as e:
+			print ("\nError Occured.")
 			break
 
 	conn.close()
