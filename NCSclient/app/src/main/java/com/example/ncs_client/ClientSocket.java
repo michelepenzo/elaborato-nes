@@ -4,8 +4,9 @@ import java.net.*;
 import java.io.*;
 
 import android.os.AsyncTask;
-
 import android.os.StrictMode;
+import java.util.Random;
+
 
 
 public class ClientSocket extends AsyncTask<String, Void, String> {
@@ -14,11 +15,17 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
     private String serverName;
     private int serverPort;
     private boolean connected = false;
+    private Random rand = new Random();
+    private int boundDelay;
+    private int minBound ;
 
-    public ClientSocket(String server, int port)
+
+    public ClientSocket(String server, int port, int bound)
     {
         serverName = server;
         serverPort = port;
+        boundDelay = bound;
+        minBound = 0;
     }
 
     public void sendMessage(String msg) throws NullPointerException{
@@ -27,6 +34,13 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
             try
             {
                 byte[] msgBytes = msg.getBytes();
+
+                try {
+                    // trovo un valore random fra 0 e bound per indicare il valore di ritardo
+                    Thread.sleep( rand.nextInt(rand.nextInt((boundDelay - minBound) + 1) + minBound));
+                }
+                catch(InterruptedException e) {}
+
                 streamOut.write(msgBytes);
                 streamOut.flush();
             }

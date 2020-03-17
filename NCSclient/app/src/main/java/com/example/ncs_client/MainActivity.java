@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         port_input.setHint("Porta");
         layout.addView(port_input);
 
+        final EditText bound_input = new EditText(this);
+        bound_input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        bound_input.setHint("Delay massimo (millisecondi)");
+        layout.addView(bound_input);
+
         builder.setView(layout);
 
         // Set up the buttons
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Enter the IP to the client
-                connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()));
+                connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()), Integer.parseInt(bound_input.getText().toString()) );
             }
         });
 
@@ -91,10 +96,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void connectClient(String ip, int port) {
+    private void connectClient(String ip, int port, int bound) {
         //Create a new client
-        ip="192.168.1.9";
-        client = new ClientSocket(ip, port);
+        // TODO
+        ip="192.168.1.16";
+
+        // meglio normalizzare
+        if(bound > 100)
+            bound = 1000;
+
+        client = new ClientSocket(ip, port, bound);
         //Start the client connection in the background
         client.execute();
 
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             //    break;
             case MotionEvent.ACTION_MOVE:
                 client.sendMessage(("1#" + x + "#" + y + "#"));
-                System.out.println(x + "---" + y);
+                //System.out.println(x + "---" + y);
                 break;
             //case MotionEvent.ACTION_UP:
             //client.sendMessage(("2#" + x + "#" + y + "#"));
