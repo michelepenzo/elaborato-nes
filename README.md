@@ -28,5 +28,4 @@ Installare il file ``.apk`` sul proprio dispositivo, aprirlo e inserire i valori
 Consultare il file [LICENSE](https://github.com/michelepenzo/nes/blob/master/LICENSE) nella repo.
 
 ### Contatti
-[E-mail](mailto:michelepenzo@outlook.it) <br>
 [Telegram](https://t.me/michelepenzo)
