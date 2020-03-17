@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         ip="192.168.1.16";
 
         // meglio normalizzare
-        if(bound > 100)
+        if(bound > 1000)
             bound = 1000;
 
         client = new ClientSocket(ip, port, bound);
