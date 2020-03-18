@@ -13,7 +13,7 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 ```
 
 Eseguire in ordine:
-- server: guardando i valori dell'indirizzo IP e della porta,
+- server: guardando i valori dell'indirizzo IP e della porta.
 - client: inserendo i valori ottenuti dal server.
 
 ### Eseguire il Server

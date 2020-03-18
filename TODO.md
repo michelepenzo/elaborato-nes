@@ -7,10 +7,12 @@
 - torna al punto in basso ogni volta che alzo il dito
 
 ## CLIENT
-- settare valore IP
+- togliere valore IP statico
 
 -------------------------------------------------------------------------------------------------
 ## APPUNTI
+- volevo provare a ritardare i pacchetti in ingresso in modo statico usando qualche tool
+
 sudo tc qdisc add dev wlp0s20f3 root netem delay 1000ms ----> 
 
 sudo tcpdump -c 50 -tttt -i wlp0s20f3 ----> cattura un numero specifico di pacchetti provenienti da una determinata interfaccia

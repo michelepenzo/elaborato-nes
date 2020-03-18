@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
         // TODO
-        //ip="192.168.1.16";
+        ip="192.168.1.16";
 
         // meglio normalizzare
         if(bound > 1000)
