@@ -7,22 +7,21 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 - Server: SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
 - Client: Smartphone Android <br>
 - Dispositivi connessi alla stessa rete WiFi. <br>
-- Eseguire il file:
+
+## Funzionamento
+1. Eseguire il file per installare i pacchetti necessari:
 ```
 ./setup.sh
 ```
 
-Eseguire in ordine:
-- server: guardando i valori dell'indirizzo IP e della porta.
-- client: inserendo i valori ottenuti dal server.
 
-### Eseguire il Server
+2. Eseguire il __server__ guardando i valori dell'indirizzo IP e della porta.
 ```
 python3 NCSserver/server.py
 ```
 
-### Eseguire il Client
-Installare il file ``.apk`` sul proprio dispositivo, aprirlo e inserire i valori.
+3. Per il __client__ installare il file ``NCS-client.apk``, aprirlo e inserire i valori ottenuti dal server.
+
 
 ## Licenza
 Consultare il file [LICENSE](https://github.com/michelepenzo/nes/blob/master/LICENSE) nella repo.

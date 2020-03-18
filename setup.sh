@@ -2,38 +2,8 @@
 
 __author__='Michele Penzo'
 
-# Primo pacchetto
-dpkg -s "python3-pip" &> /dev/null
-
-if [ $? -eq 0 ]; then
-    :
-else
-    sudo apt-get install python3-pip
-fi
-
-# Secondo pacchetto
-
-dpkg -s "python3-tk" &> /dev/null
-
-if [ $? -eq 0 ]; then
-    :
-else
-    sudo apt-get install python3-tk
-fi
-
-# Terzo pacchetto
-dpkg -s "python3-dev" &> /dev/null
-
-if [ $? -eq 0 ]; then
-    :
-else
-    sudo apt-get install python3-dev
-    pip3 install pyautogui
-fi
-
-sudo apt-get install gnome-paint
+# installo i pacchetti necessari
+sudo apt-get install python3-pip python3-tk python3-dev gnome-paint -y 
+pip3 install pyautogui
 
 gnome-paint
-
-
-#exit
