@@ -98,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
-        // TODO
-        ip="192.168.1.16";
-
         // meglio normalizzare
         if(bound > 1000)
             bound = 1000;
@@ -135,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 //System.out.println(x + "---" + y);
                 break;
             case MotionEvent.ACTION_UP:
-                // TODO c'è gia un'altra azione uguale
                 //client.sendMessage(("2#" + x + "#" + y + "#"));
                 break;
         }

@@ -3,9 +3,6 @@
 ## README
 - aggiungere l'apk e fare la release
 
-## SERVER
-- torna al punto in basso ogni volta che alzo il dito
-
 ## CLIENT
 - togliere valore IP statico
 
