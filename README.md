@@ -4,7 +4,9 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 
 ## Prerequisiti
 
-- Server: SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
+- Server:
+	- SO Linux (sviluppato e testato su Ubuntu 19.10) <br>
+	- python 3.7
 - Client: Smartphone Android <br>
 - Dispositivi connessi alla stessa rete WiFi. <br>
 
