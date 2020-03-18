@@ -13,7 +13,7 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 ```
 
 Eseguire in ordine:
-- server: guardando i valori dell'indirizzo IP e della porta,
+- server: guardando i valori dell'indirizzo IP e della porta.
 - client: inserendo i valori ottenuti dal server.
 
 ### Eseguire il Server
@@ -28,5 +28,4 @@ Installare il file ``.apk`` sul proprio dispositivo, aprirlo e inserire i valori
 Consultare il file [LICENSE](https://github.com/michelepenzo/nes/blob/master/LICENSE) nella repo.
 
 ### Contatti
-[E-mail](mailto:michelepenzo@outlook.it) <br>
 [Telegram](https://t.me/michelepenzo)
