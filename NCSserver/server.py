@@ -15,7 +15,6 @@ def Server():
 	x, y = 0, 0
 	move_x, move_y = 0, 0
 	offset_x, offset_y = 0, 0
-	#old_x1, old_y1 = pyautogui.position()
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
 
@@ -43,7 +42,7 @@ def Server():
 				break
 
 			cmd=str(data.decode('ascii')).split('#')    # splitto per vedere il comando che voglio utilizzare
-			#for (int i = 0; i < command.Length - 1; i+=3)
+			
 			x, y = int(cmd[1]), int(cmd[2])
 			
 			if cmd[0] is '0':   # initial press
