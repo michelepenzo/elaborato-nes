@@ -12,8 +12,10 @@ def Server():
 	MAX_SIZE_X, MAX_SIZE_Y = pyautogui.size()
 
 	# valori iniziali di x e y
-	x1, y1 = 0, 0
-	old_x1, old_y1 = pyautogui.position()
+	x, y = 0, 0
+	move_x, move_y = 0, 0
+	offset_x, offset_y = 0, 0
+	#old_x1, old_y1 = pyautogui.position()
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
 
@@ -41,25 +43,30 @@ def Server():
 				break
 
 			cmd=str(data.decode('ascii')).split('#')    # splitto per vedere il comando che voglio utilizzare
+			#for (int i = 0; i < command.Length - 1; i+=3)
+			x, y = int(cmd[1]), int(cmd[2])
 			
-			x1, y1 = int(cmd[1]), int(cmd[2])
-
-			if cmd[0] is '0':	# action down
-				pyautogui.moveTo(old_x1, old_y1)
+			if cmd[0] is '0':   # initial press
+				mouse_x, mouse_y = pyautogui.position()
+				offset_x, offset_y = x, y
 			
-			elif cmd[0] is '1':	# action move
-				pyautogui.dragTo(old_x1, old_y1, button='left')
-				
+			elif cmd[0] is '1': # moving around
+				move_x = mouse_x + (x - offset_x) 
+				move_y = mouse_y + (y - offset_y)
+				pyautogui.dragTo(move_x, move_y, button='left') 
+				#pyautogui.moveTo(move_x, move_y)
+			
 			elif cmd[0] is '2':
 				pyautogui.click(pyautogui.position(), button='left')
-				
+			
 			elif cmd[0] is '3':
 				pyautogui.click(pyautogui.position(), button='right')
 			
+			else:
+				print('Bad command')
+
 			conn.sendall(str.encode("SERVER_RES: " + str(data)))
-
-			old_x1, old_y1 = x1 , y1
-
+			
 		except (socket.error, KeyboardInterrupt) as e:
 			print ("\nError Occured.")
 			break
