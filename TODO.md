@@ -1,12 +1,5 @@
 # TODO list file
 
-## README
-- aggiungere l'apk e fare la release
-
-## CLIENT
-- togliere valore IP statico
-
--------------------------------------------------------------------------------------------------
 ## APPUNTI
 - volevo provare a ritardare i pacchetti in ingresso in modo statico usando qualche tool
 
