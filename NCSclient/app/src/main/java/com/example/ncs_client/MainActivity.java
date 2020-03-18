@@ -127,16 +127,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         switch (event.getAction()) {
-            //case MotionEvent.ACTION_DOWN:
-            //    client.sendMessage(("0#" + x + "#" + y + "#"));
-            //    break;
+            case MotionEvent.ACTION_DOWN:
+                client.sendMessage(("0#" + x + "#" + y + "#"));
+                break;
             case MotionEvent.ACTION_MOVE:
                 client.sendMessage(("1#" + x + "#" + y + "#"));
                 //System.out.println(x + "---" + y);
                 break;
-            //case MotionEvent.ACTION_UP:
-            //client.sendMessage(("2#" + x + "#" + y + "#"));
-            //break;
+            case MotionEvent.ACTION_UP:
+                // TODO c'è gia un'altra azione uguale
+                //client.sendMessage(("2#" + x + "#" + y + "#"));
+                break;
         }
 
     return false;
