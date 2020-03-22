@@ -25,7 +25,6 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
         serverName = server;
         serverPort = port;
         boundDelay = bound;
-        minBound = 0;
     }
 
     public void sendMessage(String msg) throws NullPointerException{
@@ -36,8 +35,7 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
                 byte[] msgBytes = msg.getBytes();
 
                 try {
-                    // trovo un valore random fra 0 e bound per indicare il valore di ritardo
-                    Thread.sleep( rand.nextInt(rand.nextInt((boundDelay - minBound) + 1) + minBound));
+                    Thread.sleep( rand.nextInt(boundDelay) );
                 }
                 catch(InterruptedException e) {}
 

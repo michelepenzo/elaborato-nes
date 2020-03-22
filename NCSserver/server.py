@@ -15,6 +15,7 @@ def Server():
 	x, y = 0, 0
 	move_x, move_y = 0, 0
 	offset_x, offset_y = 0, 0
+	old_cmd = '0'
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
 
@@ -48,19 +49,39 @@ def Server():
 			if cmd[0] is '0':   # initial press
 				mouse_x, mouse_y = pyautogui.position()
 				offset_x, offset_y = x, y
-			
-			elif cmd[0] is '1': # moving around
+				old_cmd = '0'
+
+			elif cmd[0] is '1':
+				
+				if old_cmd is '4':
+					move_x = mouse_x + (x - offset_x) 
+					move_y = mouse_y + (y - offset_y)
+					pyautogui.dragTo(move_x, move_y)
+					old_cmd = '4'
+
+				else:
+					move_x = mouse_x + (x - offset_x) 
+					move_y = mouse_y + (y - offset_y)
+					pyautogui.moveTo(move_x, move_y)
+					old_cmd = '1'
+					
+				
+				'''
 				move_x = mouse_x + (x - offset_x) 
 				move_y = mouse_y + (y - offset_y)
-				#pyautogui.dragTo(move_x, move_y, button='left') 
-				pyautogui.moveTo(move_x, move_y)
-			
-			elif cmd[0] is '2':
+				pyautogui.dragTo(move_x, move_y)
+				'''
+			elif cmd[0] is '2':	# button left
 				pyautogui.click(pyautogui.position(), button='left')
+				old_cmd = '2'
 			
-			elif cmd[0] is '3':
+			elif cmd[0] is '3':	# button right
 				pyautogui.click(pyautogui.position(), button='right')
+				old_cmd = '3'
 
+			elif cmd[0] is '4':	# double tap and left button clicked
+				pyautogui.click(pyautogui.position(), clicks=2, button='left')
+				old_cmd = '4'
 			
 			else:
 				print('Bad command')

@@ -1,7 +1,9 @@
 
 package com.example.ncs_client;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.StrictMode;
 import android.text.InputType;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,14 +21,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{
 
     ClientSocket client;
+
+
+    private static final String DEBUG_TAG = "Gestures";
+    private GestureDetectorCompat mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDetector = new GestureDetectorCompat(this,this);
+        // Set the gesture detector as the double tap
+        // listener.
+        mDetector.setOnDoubleTapListener(this);
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -76,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return true;
+    }
 
     public OnClickListener btnLeft_onClick = new OnClickListener() {
         public void onClick(final View v) {
@@ -91,9 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
+        // TODO
         ip="192.168.1.5";
+
         // meglio normalizzare
         if(bound > 1000)
             bound = 1000;
@@ -105,50 +129,84 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+    public boolean onTouchEvent(MotionEvent event){
+
+        if (this.mDetector.onTouchEvent(event)) {
+            // nuovi valori della x
+            int x = (int)event.getX();
+            int y = (int)event.getY();
+
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    client.sendMessage(("0#" + x + "#" + y + "#"));
+                    System.out.println("down touch");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    client.sendMessage(("1#" + x + "#" + y + "#"));
+                    System.out.println("move touch");
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
         return true;
     }
 
-
-
-    public boolean onTouchEvent(MotionEvent event) {
-
-        // nuovi valori della x
-        int x = (int)event.getX();
-        int y = (int)event.getY();
-
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                client.sendMessage(("0#" + x + "#" + y + "#"));
-                //System.out.println("0#" + x + "#" + y + "#");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                client.sendMessage(("1#" + x + "#" + y + "#"));
-                //System.out.println("1#" + x + "#" + y + "#");
-                break;
-            case MotionEvent.ACTION_UP:
-                //client.sendMessage(("4#" + x + "#" + y + "#"));
-                //System.out.println("4#" + x + "#" + y + "#");
-                break;
-            default:
-                break;
-        }
-
-    return false;
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent event) {
+        System.out.println("double tap event");
+        client.sendMessage(("4#0#0#"));
+        return true;
     }
 
-    public boolean onDoubleTapEvent(MotionEvent event) {
+    @Override
+    public boolean onDoubleTap(MotionEvent event) {
+        return true;
+    }
 
-        int x = (int)event.getX();
-        int y = (int)event.getY();
+    @Override
+    public boolean onDown(MotionEvent event) {
+        //System.out.println("onDown: ");
+        return true;
+    }
 
-        client.sendMessage(("4#" + x + "#" + y + "#"));
+    @Override
+    public boolean onFling(MotionEvent event1, MotionEvent event2,
+                           float velocityX, float velocityY) {
+        //System.out.println("onFling: ");
+        return true;
+    }
 
-        return false;
+    @Override
+    public void onLongPress(MotionEvent event) {
+        //System.out.println("onLongPress: ");
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent event1, MotionEvent event2, float distanceX,
+                            float distanceY) {
+        //System.out.println("onScroll");
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent event) {
+        //System.out.println("onShowPress: ");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent event) {
+        //System.out.println("onSingleTapUp: ");
+        return true;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent event) {
+        //System.out.println("onSingleTapConfirmed: ");
+        return true;
     }
 
 }
