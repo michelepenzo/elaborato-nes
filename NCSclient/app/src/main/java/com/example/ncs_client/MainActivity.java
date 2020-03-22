@@ -14,17 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
 
     ClientSocket client;
-    private Switch enable_click;
-    private int pos=0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
+        ip="192.168.1.5";
         // meglio normalizzare
         if(bound > 1000)
             bound = 1000;
@@ -116,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     public boolean onTouchEvent(MotionEvent event) {
 
         // nuovi valori della x
@@ -126,19 +124,32 @@ public class MainActivity extends AppCompatActivity {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 client.sendMessage(("0#" + x + "#" + y + "#"));
+                //System.out.println("0#" + x + "#" + y + "#");
                 break;
             case MotionEvent.ACTION_MOVE:
                 client.sendMessage(("1#" + x + "#" + y + "#"));
-                //System.out.println(x + "---" + y);
+                //System.out.println("1#" + x + "#" + y + "#");
                 break;
             case MotionEvent.ACTION_UP:
-                //client.sendMessage(("2#" + x + "#" + y + "#"));
+                //client.sendMessage(("4#" + x + "#" + y + "#"));
+                //System.out.println("4#" + x + "#" + y + "#");
+                break;
+            default:
                 break;
         }
 
     return false;
     }
 
+    public boolean onDoubleTapEvent(MotionEvent event) {
+
+        int x = (int)event.getX();
+        int y = (int)event.getY();
+
+        client.sendMessage(("4#" + x + "#" + y + "#"));
+
+        return false;
+    }
 
 }
 

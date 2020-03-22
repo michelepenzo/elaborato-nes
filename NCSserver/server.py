@@ -52,14 +52,15 @@ def Server():
 			elif cmd[0] is '1': # moving around
 				move_x = mouse_x + (x - offset_x) 
 				move_y = mouse_y + (y - offset_y)
-				pyautogui.dragTo(move_x, move_y, button='left') 
-				#pyautogui.moveTo(move_x, move_y)
+				#pyautogui.dragTo(move_x, move_y, button='left') 
+				pyautogui.moveTo(move_x, move_y)
 			
 			elif cmd[0] is '2':
 				pyautogui.click(pyautogui.position(), button='left')
 			
 			elif cmd[0] is '3':
 				pyautogui.click(pyautogui.position(), button='right')
+
 			
 			else:
 				print('Bad command')
