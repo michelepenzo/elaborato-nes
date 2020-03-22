@@ -112,8 +112,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
-        // TODO
-        ip="192.168.1.5";
 
         // meglio normalizzare
         if(bound > 1000)
