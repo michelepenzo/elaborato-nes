@@ -24,10 +24,10 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{
 
     ClientSocket client;
-
-
     private static final String DEBUG_TAG = "Gestures";
     private GestureDetectorCompat mDetector;
+    private int x;
+    private int y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         setContentView(R.layout.activity_main);
 
         mDetector = new GestureDetectorCompat(this,this);
-        // Set the gesture detector as the double tap
-        // listener.
-        mDetector.setOnDoubleTapListener(this);
+        //mDetector.setOnDoubleTapListener(this);
+        mDetector.setIsLongpressEnabled(true);
+
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -109,10 +109,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             client.sendMessage(("3#0#0#"));
         }
     };
-
-
-
-
+    
     private void connectClient(String ip, int port, int bound) {
         //Create a new client
         // TODO
@@ -131,36 +128,57 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        if (this.mDetector.onTouchEvent(event)) {
-            // nuovi valori della x
-            int x = (int)event.getX();
-            int y = (int)event.getY();
+
+        if (this.mDetector.onTouchEvent(event) == true) {
+            // questo  va bene per il movimento continuo
+            x = (int)event.getX();
+            y = (int)event.getY();
 
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     client.sendMessage(("0#" + x + "#" + y + "#"));
-                    System.out.println("down touch");
                     break;
                 case MotionEvent.ACTION_MOVE:
                     client.sendMessage(("1#" + x + "#" + y + "#"));
-                    System.out.println("move touch");
                     break;
 
                 default:
                     break;
             }
         }
+        else{
+            // questo mi va bene per la pressione, come se fosse doppio tap
+            x = (int)event.getX();
+            y = (int)event.getY();
 
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    client.sendMessage(("0#" + x + "#" + y + "#"));
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    client.sendMessage(("1#" + x + "#" + y + "#"));
+                    break;
+
+                default:
+                    break;
+            }
+        }
         return true;
     }
 
     @Override
     public boolean onDoubleTapEvent(MotionEvent event) {
-        System.out.println("double tap event");
         client.sendMessage(("4#0#0#"));
         return true;
     }
+
+    @Override
+    public void onLongPress(MotionEvent event) {
+        client.sendMessage(("4#0#0#"));
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     @Override
     public boolean onDoubleTap(MotionEvent event) {
@@ -169,43 +187,32 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public boolean onDown(MotionEvent event) {
-        //System.out.println("onDown: ");
         return true;
     }
 
     @Override
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
-        //System.out.println("onFling: ");
         return true;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent event) {
-        //System.out.println("onLongPress: ");
     }
 
     @Override
     public boolean onScroll(MotionEvent event1, MotionEvent event2, float distanceX,
                             float distanceY) {
-        //System.out.println("onScroll");
         return true;
     }
 
     @Override
     public void onShowPress(MotionEvent event) {
-        //System.out.println("onShowPress: ");
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
-        //System.out.println("onSingleTapUp: ");
         return true;
     }
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
-        //System.out.println("onSingleTapConfirmed: ");
         return true;
     }
 
