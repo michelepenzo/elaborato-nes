@@ -50,7 +50,7 @@ def Server():
 				mouse_x, mouse_y = pyautogui.position()
 				offset_x, offset_y = x, y
 				old_cmd = '0'
-
+				
 			elif cmd[0] is '1':
 				
 				if old_cmd is '4':
@@ -65,12 +65,6 @@ def Server():
 					pyautogui.moveTo(move_x, move_y)
 					old_cmd = '1'
 					
-				
-				'''
-				move_x = mouse_x + (x - offset_x) 
-				move_y = mouse_y + (y - offset_y)
-				pyautogui.dragTo(move_x, move_y)
-				'''
 			elif cmd[0] is '2':	# button left
 				pyautogui.click(pyautogui.position(), button='left')
 				old_cmd = '2'
