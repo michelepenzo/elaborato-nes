@@ -15,10 +15,11 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
     private String serverName;
     private int serverPort;
     private boolean connected = false;
+    /*
     private Random rand = new Random();
     private int boundDelay;
     private int minBound ;
-
+     */
 
     public ClientSocket(String server, int port)//, int bound)
     {

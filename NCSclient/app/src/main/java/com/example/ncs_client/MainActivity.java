@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        builder.setTitle("Inserisci il valore di :");
+        builder.setTitle("Inserisci:");
 
         // Set up the input
         final EditText ip_input = new EditText(this);
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             client.sendMessage(("3#0#0#"));
         }
     };
-    
+
      */
     
     private void connectClient(String ip, int port){ //}, int bound) {
@@ -125,10 +125,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
         client = new ClientSocket(ip, port);//, bound);
 
-
         //Start the client connection in the background
         client.execute();
-
     }
 
     @Override
