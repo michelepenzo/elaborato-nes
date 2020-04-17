@@ -15,7 +15,7 @@ def Server():
 	
 	# -------------------
 	# ---- max delay ----
-	MAX_DELAY = 0.6
+	MAX_DELAY = 0.4
 
 	# starting values
 	x, y = 0, 0
@@ -34,7 +34,7 @@ def Server():
 	s.listen(1)
 
 	print('IP address: '+ str(host))
-	print('Port: '+ str(s.getsockname()[1]))
+	#print('Port: '+ str(s.getsockname()[1]))
 
 	conn, addr = s.accept()
 	print('Device connected')   
