@@ -10,11 +10,12 @@ def Client():
 	#Create socket object
 	clientsocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-	ip = '192.168.1.18'
+	# TODO modificare qui perchè forse non va bene localhost
+	ip = 'localhost'
 	#ip = input('Insert server IP address: ').replace('\n','')
-	port = input('Insert server port value: ').replace('\n','')
+	port = 5050
 
-	clientsocket.connect((str(ip), int(port))) 
+	clientsocket.connect((ip, port)) 
 	
 	'''
 	message = clientsocket.recv(1024)
