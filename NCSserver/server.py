@@ -20,8 +20,10 @@ def Server():
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create socket
 
 	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')  # stampo l'indirzzo ip locale
-	port = 0    # free port
+	#port = 0    # free port
 
+
+	port = 5050
 	s.bind((host, port))
 
 	s.listen(1)
