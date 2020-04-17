@@ -12,7 +12,8 @@ class Paint(object):
     # default parameters
     default_pen_size=4.0
     default_color='black'
-    # TODO calcola il centro
+
+    # TODO metti al centro
     center_x, center_y = 0, 0
     radius = 100
 
