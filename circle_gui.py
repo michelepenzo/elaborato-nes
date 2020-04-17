@@ -4,12 +4,17 @@ __author__ = 'Michele Penzo'
 
 from tkinter import *
 from tkinter.colorchooser import askcolor
+import pyautogui
+from math import sqrt
 
 class Paint(object):
 
     # default parameters
     default_pen_size=4.0
     default_color='black'
+    # TODO calcola il centro
+    center_x, center_y = 0, 0
+    radius = 100
 
     # whiteboard
     def __init__(self):
@@ -32,10 +37,9 @@ class Paint(object):
         self.label_error = Label(self.root, text='', font=("Helvetica", 16))
         self.label_error.grid(sticky = W, row=0, column=1) 
 
-        pos_y, pos_x =  _width/2, _height/2
-        #pos_x-500, pos_y-500, pos_x, pos_y
-        # TODO center oval con disegno con x1 e y1
-        self.c.create_oval(10,10,80,80, outline="#ff0000", fill="#1fba32", width=2)
+        center_x, center_y =  _height/4, _width/4
+        radius = self.radius
+        self.c.create_oval(center_x-radius, center_y-radius, center_x+radius, center_y+radius, outline="#ff0000", fill="#1fba32", width=2)
         
         self.setup()
         
@@ -62,10 +66,10 @@ class Paint(object):
 
         self.old_x = event.x
         self.old_y = event.y
-
-        # calculating distance from circle
-        distance = 0
         
+        # calculating distance from center
+        distance = abs( sqrt( (self.old_x - self.center_x)**2 + (self.old_y - self.center_y)**2 ) - self.radius )
+
         self.label_error['text'] = distance
 
 
@@ -73,6 +77,7 @@ class Paint(object):
     def reset(self, event):
         self.old_x=None
         self.old_y=None
+
 
 if __name__ == '__main__':
     Paint()
