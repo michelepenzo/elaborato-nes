@@ -20,11 +20,11 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
     private int minBound ;
 
 
-    public ClientSocket(String server, int port, int bound)
+    public ClientSocket(String server, int port)//, int bound)
     {
         serverName = server;
         serverPort = port;
-        boundDelay = bound;
+        // boundDelay = bound;
     }
 
     public void sendMessage(String msg) throws NullPointerException{
@@ -34,11 +34,13 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
             {
                 byte[] msgBytes = msg.getBytes();
 
+                /*
+                NO DELAY ON SERVER
                 try {
                     Thread.sleep( rand.nextInt(boundDelay) );
                 }
                 catch(InterruptedException e) {}
-
+                */
                 streamOut.write(msgBytes);
                 streamOut.flush();
             }

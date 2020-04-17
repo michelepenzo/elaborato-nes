@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        /*
         Button btnLeft = (Button) findViewById(R.id.btn_leftClick);
         Button btnRight = (Button) findViewById(R.id.btn_rightClick);
-
+         */
 
         //Display a pop-up requesting the target machine IP
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -52,14 +53,14 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        builder.setTitle("Inserisci i valori di:");
+        builder.setTitle("Inserisci il valore di :");
 
         // Set up the input
         final EditText ip_input = new EditText(this);
         ip_input.setInputType(InputType.TYPE_CLASS_PHONE);
         ip_input.setHint("Indirizzo IP");
         layout.addView(ip_input);
-
+        /*
         final EditText port_input = new EditText(this);
         port_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         port_input.setHint("Porta");
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         bound_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         bound_input.setHint("Delay massimo (millisecondi)");
         layout.addView(bound_input);
-
+        */
         builder.setView(layout);
 
         // Set up the buttons
@@ -77,14 +78,17 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Enter the IP to the client
-                connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()), Integer.parseInt(bound_input.getText().toString()) );
+                //connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()), Integer.parseInt(bound_input.getText().toString()) );
+                connectClient(ip_input.getText().toString(), 5050);
             }
         });
 
         builder.show();
-
+        /*
         btnLeft.setOnClickListener(btnLeft_onClick);
         btnRight.setOnClickListener(btnRight_onClick);
+
+         */
 
     }
 
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
         return true;
     }
-
+    /*
     public OnClickListener btnLeft_onClick = new OnClickListener() {
         public void onClick(final View v) {
             client.sendMessage(("2#0#0#"));
@@ -108,14 +112,20 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         }
     };
     
-    private void connectClient(String ip, int port, int bound) {
+     */
+    
+    private void connectClient(String ip, int port){ //}, int bound) {
         //Create a new client
 
-        // meglio normalizzare
+        /*
         if(bound > 1000)
             bound = 1000;
+        */
 
-        client = new ClientSocket(ip, port, bound);
+
+        client = new ClientSocket(ip, port);//, bound);
+
+
         //Start the client connection in the background
         client.execute();
 
