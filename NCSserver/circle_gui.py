@@ -4,7 +4,7 @@ __author__ = 'Michele Penzo'
 
 from tkinter import *
 from tkinter.colorchooser import askcolor
-import random
+
 class Paint(object):
 
     # default parameters
@@ -23,7 +23,7 @@ class Paint(object):
         self.c = Canvas(self.root, bg='white', width=_width, height=_height)
         self.c.grid(row=1, columnspan=5)
 
-        self.label_error = Label(self.root, text='Valore error correction -->    ', font=("Helvetica", 16))
+        self.label_error = Label(self.root, text='Distanza dal cerchio --->   ', font=("Helvetica", 16))
         self.label_error.grid(sticky = E, row=0, column=0) 
         
         # correction error printed here
@@ -59,8 +59,11 @@ class Paint(object):
         self.old_x = event.x
         self.old_y = event.y
 
-        # calculating error correction value
-        self.label_error['text'] = random.randint(0,5)
+        # calculating distance from circle
+        distance = 0
+
+        
+        self.label_error['text'] = distance
 
     # reset value
     def reset(self, event):
