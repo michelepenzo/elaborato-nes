@@ -13,9 +13,6 @@ import android.text.InputType;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -53,24 +50,12 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        //builder.setTitle("Inserisci:");
-
         // Set up the input
         final EditText ip_input = new EditText(this);
         ip_input.setInputType(InputType.TYPE_CLASS_PHONE);
         ip_input.setHint("Inserisci indirizzo IP");
         layout.addView(ip_input);
-        /*
-        final EditText port_input = new EditText(this);
-        port_input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        port_input.setHint("Porta");
-        layout.addView(port_input);
 
-        final EditText bound_input = new EditText(this);
-        bound_input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        bound_input.setHint("Delay massimo (millisecondi)");
-        layout.addView(bound_input);
-        */
         builder.setView(layout);
 
         // Set up the buttons
@@ -78,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Enter the IP to the client
-                //connectClient(ip_input.getText().toString(), Integer.parseInt(port_input.getText().toString()), Integer.parseInt(bound_input.getText().toString()) );
                 connectClient(ip_input.getText().toString(), 5050);
             }
         });
@@ -87,8 +71,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         /*
         btnLeft.setOnClickListener(btnLeft_onClick);
         btnRight.setOnClickListener(btnRight_onClick);
-
-         */
+        */
 
     }
 
@@ -114,17 +97,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
      */
     
-    private void connectClient(String ip, int port){ //}, int bound) {
+    private void connectClient(String ip, int port){
         //Create a new client
 
-        /*
-        if(bound > 1000)
-            bound = 1000;
-        */
-
-
-        client = new ClientSocket(ip, port);//, bound);
-
+        client = new ClientSocket(ip, port);
         //Start the client connection in the background
         client.execute();
     }
