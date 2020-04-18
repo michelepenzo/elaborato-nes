@@ -13,9 +13,8 @@ class Paint(object):
     default_pen_size=4.0
     default_color='black'
 
-    # TODO metti al centro
-    x, y = 960,500     # starting coordinate of circle
-    radius = 350
+    x, y = 960,500     # starting coordinate of circle --> not the center of monitor
+    radius = 350 - default_pen_size
 
     # whiteboard
     def __init__(self):
@@ -47,7 +46,7 @@ class Paint(object):
 
         # getting the coordinates 
         x1, y1 ,x2 ,y2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
-        self.c.create_oval(x1, y1, x2, y2, outline="#3427a3", fill="#add4d9", width=4)
+        self.c.create_oval(x1, y1, x2, y2, outline="#3427a3", fill="#add4d9", width=self.default_pen_size)
         
         self.setup()
         
