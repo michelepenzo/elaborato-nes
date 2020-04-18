@@ -26,7 +26,6 @@ def Server():
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # open socket
 
 	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')  # local ip
-	#port = 0    # free port
 	port = 5050	 # static port
 
 	s.bind((host, port))

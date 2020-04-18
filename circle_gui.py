@@ -21,7 +21,10 @@ class Paint(object):
     def __init__(self):
         self.root=Tk()
         self.root.title('NCS Server')
-        
+    
+        # the new cursor
+        self.root.config(cursor='arrow red')
+
         # get width and height
         _width=self.root.winfo_screenwidth()
         _height=self.root.winfo_screenheight()
@@ -59,7 +62,7 @@ class Paint(object):
         self.c.bind('<ButtonRelease-1>', self.reset)
 
 
-    # method for writing inside whiteboard
+    # method for writing on whiteboard
     def paint(self, event):
     
         if self.old_x and self.old_y:
@@ -69,7 +72,7 @@ class Paint(object):
         self.old_y = event.y
         
         # calculating distance from center
-        distance = abs( sqrt( (self.old_x - self.center_x)**2 + (self.old_y - self.center_y)**2 ) - self.radius )
+        distance = sqrt( (self.old_x - self.center_x)**2 + (self.old_y - self.center_y)**2 ) - self.radius
 
         self.label_error['text'] = distance
 

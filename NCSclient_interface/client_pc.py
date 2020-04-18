@@ -10,12 +10,11 @@ def Client():
 	#Create socket object
 	clientsocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-	# TODO modificare qui perchè forse non va bene localhost
-	ip = 'localhost'
-	#ip = input('Insert server IP address: ').replace('\n','')
+	# using IP address i'm able to connect from app
+	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')  # local ip
 	port = 5050
 
-	clientsocket.connect((ip, port)) 
+	clientsocket.connect((host, port)) 
 	
 	'''
 	message = clientsocket.recv(1024)
@@ -24,6 +23,7 @@ def Client():
 	'''
 
 	# qui devo leggere i valori del mouse e inviarli in base a come li riceve il server
+	# send byte
 	clientsocket.send()
 
 if __name__ == '__main__':

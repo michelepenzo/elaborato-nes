@@ -31,7 +31,7 @@ python3 NCSserver/server.py
 
 4. Per il __client__:
 	- da *smartphone Android* installare il file ``client_app.apk`` che si trova in ``NCSclient_interface``, aprirlo e inserire l'indirizzo IP ottenuto dal server.
-	- da *PC* aprire un terminale ed eseguire e inserire l'indirizzo IP ottenuto dal server:
+	- da *PC* aprire un terminale ed eseguire:
 		```
 		cd NCSclient_interface
 		python3 client_pc.py
