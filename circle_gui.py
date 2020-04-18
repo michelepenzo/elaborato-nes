@@ -14,8 +14,8 @@ class Paint(object):
     default_color='black'
 
     # TODO metti al centro
-    center_x, center_y = 0, 0
-    radius = 100
+    x, y = 960,500     # starting coordinate of circle
+    radius = 350
 
     # whiteboard
     def __init__(self):
@@ -28,22 +28,26 @@ class Paint(object):
         # get width and height
         _width=self.root.winfo_screenwidth()
         _height=self.root.winfo_screenheight()
-
+        
         # canvas
         self.c = Canvas(self.root, bg='white', width=_width, height=_height)
         self.c.grid(row=1, columnspan=5)
 
         # distance labele
-        self.label_error = Label(self.root, text='Distanza dal cerchio --->   ', font=("Helvetica", 16))
-        self.label_error.grid(sticky = E, row=0, column=0) 
+        self.label = Label(self.root, text='Errore --->   ', font=("Helvetica", 16))
+        self.label.grid(sticky = E, row=0, column=0) 
         
         # correction error printed here
         self.label_error = Label(self.root, text='', font=("Helvetica", 16))
         self.label_error.grid(sticky = W, row=0, column=1) 
 
-        center_x, center_y =  _height/4, _width/4
-        radius = self.radius
-        self.c.create_oval(center_x-radius, center_y-radius, center_x+radius, center_y+radius, outline="#ff0000", fill="#1fba32", width=2)
+        # exit button
+        self.exit_button = Button(self.root, text='Chiudi', font=("Helvetica", 16), command=exit)
+        self.exit_button.grid(sticky = W, row=0, column=2) 
+
+        # getting the coordinates 
+        x1, y1 ,x2 ,y2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
+        self.c.create_oval(x1, y1, x2, y2, outline="#3427a3", fill="#add4d9", width=4)
         
         self.setup()
         
@@ -61,7 +65,7 @@ class Paint(object):
         self.c.bind('<B1-Motion>', self.paint)
         self.c.bind('<ButtonRelease-1>', self.reset)
 
-
+    
     # method for writing on whiteboard
     def paint(self, event):
     
@@ -72,10 +76,9 @@ class Paint(object):
         self.old_y = event.y
         
         # calculating distance from center
-        distance = sqrt( (self.old_x - self.center_x)**2 + (self.old_y - self.center_y)**2 ) - self.radius
+        distance = sqrt( (self.old_x - self.x)**2 + (self.old_y - self.y)**2 ) - self.radius
 
-        self.label_error['text'] = distance
-
+        self.label_error['text'] = round(distance,2)
 
     # reset value
     def reset(self, event):
