@@ -22,6 +22,7 @@ def Server():
 	move_x, move_y = 0, 0
 	offset_x, offset_y = 0, 0
 	old_cmd = '0'
+	mouse_x, mouse_y = pyautogui.position()
 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # open socket
 
@@ -58,7 +59,7 @@ def Server():
 			
 
 			if cmd[0] is '0':   # initial press
-				mouse_x, mouse_y = pyautogui.position()
+				#mouse_x, mouse_y = pyautogui.position()
 				offset_x, offset_y = x, y
 				old_cmd = '0'
 				
@@ -87,12 +88,9 @@ def Server():
 			elif cmd[0] is '4':	# double tap and left button clicked
 				pyautogui.click(pyautogui.position(), clicks=2, button='left')
 				old_cmd = '4'
-			
 			else:
 				print('Bad command')
 
-			#conn.sendall(str.encode("SERVER_RES: " + str(data)))
-			
 		except (socket.error, KeyboardInterrupt) as e:
 			print ("\nError Occured.")
 			conn.close()
