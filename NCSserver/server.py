@@ -45,11 +45,11 @@ def Server():
 	while True:
 		try:
 
-			data = conn.recv(1024)  # get data
+			data = conn.recv(16)  # get data
 			if not data:
 				print('no data')
 				break
-
+			
 			cmd=str(data.decode('ascii')).split('#')	# split command 
 			x, y = int(cmd[1]), int(cmd[2])				# get position
 			
@@ -74,17 +74,10 @@ def Server():
 				else:
 					move_x = mouse_x + (x - offset_x) 
 					move_y = mouse_y + (y - offset_y)
+					print(move_x, move_y)
 					pyautogui.moveTo(move_x, move_y)
 					old_cmd = '1'
-				'''
-				elif cmd[0] is '2':	# button left
-					pyautogui.click(pyautogui.position(), button='left')
-					old_cmd = '2'
-				
-				elif cmd[0] is '3':	# button right
-					pyautogui.click(pyautogui.position(), button='right')
-					old_cmd = '3'
-				'''
+					
 			elif cmd[0] is '4':	# double tap and left button clicked
 				pyautogui.click(pyautogui.position(), clicks=2, button='left')
 				old_cmd = '4'
