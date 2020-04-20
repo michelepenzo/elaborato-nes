@@ -27,8 +27,7 @@ public class ClientSocket extends AsyncTask<String, Void, String> {
         if(connected) {
             try
             {
-                byte[] msgBytes = new byte[16];
-                msgBytes = msg.getBytes();
+                byte[] msgBytes = msg.getBytes();
                 streamOut.write(msgBytes);
                 streamOut.flush();
             }

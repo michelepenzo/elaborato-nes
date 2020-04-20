@@ -9,7 +9,7 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 	- python 3.7
 - Client:
 	- Smartphone Android _oppure_<br>
-	- PC con python 3.7
+	- SO Linux con python 3.7
 - Dispositivi connessi alla stessa rete WiFi. <br>
 
 ## Funzionamento

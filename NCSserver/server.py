@@ -15,7 +15,7 @@ def Server():
 	
 	# -------------------
 	# ---- max delay ----
-	MAX_DELAY = 0.4
+	MAX_DELAY = 0.2
 
 	# starting values
 	x, y = 0, 0
@@ -28,13 +28,11 @@ def Server():
 
 	host = subprocess.run(["hostname", "-I"], capture_output=True).stdout.decode('ascii').replace('\n','').replace(' ','')  # local ip
 	port = 5050	 # static port
-
+	
 	s.bind((host, port))
-
 	s.listen(1)
 
 	print('IP address: '+ str(host))
-	#print('Port: '+ str(s.getsockname()[1]))
 
 	conn, addr = s.accept()
 	print('Device connected')   
@@ -42,52 +40,81 @@ def Server():
 	cmd = list()
 	pyautogui.FAILSAFE = False
 
-	while True:
-		try:
+	_app = False
+	# TODO ricevere il primo comando per vedere se è l'applicazione
 
-			data = conn.recv(16)  # get data
-			if not data:
-				print('no data')
-				break
-			
-			cmd=str(data.decode('ascii')).split('#')	# split command 
-			x, y = int(cmd[1]), int(cmd[2])				# get position
-			
-			# -------------------
-			# ------ delay ------
-			sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
-			
+	if _app:
+		# codice per l'applicazione
+		while True:
+			try:
 
-			if cmd[0] is '0':   # initial press
-				#mouse_x, mouse_y = pyautogui.position()
-				offset_x, offset_y = x, y
-				old_cmd = '0'
+				data = conn.recv(1024)  # get data
+				if not data:
+					print('no data')
+					break
 				
-			elif cmd[0] is '1':	# simple movement
+				cmd=str(data.decode('ascii')).replace(' ', '').split('#')	# split command 
 				
-				if old_cmd is '4':
-					move_x = mouse_x + (x - offset_x) 
-					move_y = mouse_y + (y - offset_y)
-					pyautogui.dragTo(move_x, move_y)
-					old_cmd = '4'
-
-				else:
-					move_x = mouse_x + (x - offset_x) 
-					move_y = mouse_y + (y - offset_y)
-					print(move_x, move_y)
-					pyautogui.moveTo(move_x, move_y)
-					old_cmd = '1'
+				x, y = int(cmd[1]), int(cmd[2])				# get position
+				
+				# -------------------
+				# ------ delay ------
+				sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
+				
+				if cmd[0] is '0':   # initial press
+					mouse_x, mouse_y = pyautogui.position()
+					offset_x, offset_y = x, y
+					old_cmd = '0'
 					
-			elif cmd[0] is '4':	# double tap and left button clicked
-				pyautogui.click(pyautogui.position(), clicks=2, button='left')
-				old_cmd = '4'
-			else:
-				print('Bad command')
+				elif cmd[0] is '1':	# simple movement
+					
+					if old_cmd is '4':
+						move_x = mouse_x + (x - offset_x) 
+						move_y = mouse_y + (y - offset_y)
+						pyautogui.dragTo(move_x, move_y)
+						old_cmd = '4'
 
-		except (socket.error, KeyboardInterrupt) as e:
-			print ("\nError Occured.")
-			conn.close()
-			break
+					else:
+						move_x = mouse_x + (x - offset_x) 
+						move_y = mouse_y + (y - offset_y)
+						pyautogui.moveTo(move_x, move_y)
+						old_cmd = '1'
+						
+				elif cmd[0] is '4':	# double tap and left button clicked
+					pyautogui.click(pyautogui.position(), clicks=2, button='left')
+					old_cmd = '4'
+				else:
+					print('Bad command')
+				
+			except (socket.error, KeyboardInterrupt, OSError) as e:
+				print ("\nError Occured.")
+				conn.close()
+				break
+	else:
+		i = 0
+		while True:
+		
+			try:
+				data = conn.recv(1024)  # get data
+				if not data:
+					print('no data')
+					break
+				
+				cmd=str(data.decode('ascii')).replace(' ', '').split('#')	# split command 
+				
+				i = i+1
+				print(str(i) + ' ' + cmd[1] + ' ' + cmd[2])
+				x, y = int(cmd[1]), int(cmd[2])				# get position
+				
+				# -------------------
+				# ------ delay ------
+				sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
+		
+			except (socket.error, KeyboardInterrupt, OSError) as e:
+				print ("\nError Occured.")
+				conn.close()
+				break
+
 
 	conn.close()
 
