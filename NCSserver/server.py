@@ -15,7 +15,7 @@ def Server():
 	
 	# -------------------
 	# ---- max delay ----
-	MAX_DELAY = 0.2
+	MAX_DELAY = 0.1
 
 	# starting values
 	x, y = 0, 0
@@ -35,16 +35,27 @@ def Server():
 	print('IP address: '+ str(host))
 
 	conn, addr = s.accept()
-	print('Device connected')   
 
 	cmd = list()
 	pyautogui.FAILSAFE = False
 
-	_app = False
-	# TODO ricevere il primo comando per vedere se è l'applicazione
+	try:
+		data = conn.recv(1024)  # get data
+		if not data:
+			print('no data')
+
+		cmd=str(data.decode('ascii')).replace(' ', '')
+
+		_app = 'pc' not in cmd
+
+	except (socket.error, KeyboardInterrupt) as e:
+		print ("\nError Occured.")
+		conn.close()
+	
 
 	if _app:
-		# codice per l'applicazione
+		print('connected with Android APP')
+
 		while True:
 			try:
 
@@ -92,8 +103,13 @@ def Server():
 				break
 	else:
 		i = 0
+		print('connected with PC')
+
 		while True:
-		
+			
+			mouse_x, mouse_y = pyautogui.position()
+			offset_x, offset_y = x, y
+
 			try:
 				data = conn.recv(1024)  # get data
 				if not data:
@@ -108,8 +124,14 @@ def Server():
 				
 				# -------------------
 				# ------ delay ------
-				sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
-		
+				#sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
+				# muovi il mouse
+				# questo è già di per se un ritardo
+				move_x = mouse_x + (x - offset_x) 
+				move_y = mouse_y + (y - offset_y)
+				pyautogui.moveTo(move_x, move_y)
+			
+
 			except (socket.error, KeyboardInterrupt, OSError) as e:
 				print ("\nError Occured.")
 				conn.close()

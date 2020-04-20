@@ -16,9 +16,14 @@ def Client():
 
 	cs.connect((host, port)) 
 
+	# CLIENT_PC
+	msg = 'pc' + (' '*1024)
+	msg = msg[:1024].encode('ascii')
+	cs.send(msg)
+
 	# starting point
 	msg = '0#0#0' + (' '*1024)
-	msg = msg[:16].encode('ascii')
+	msg = msg[:1024].encode('ascii')
 	cs.send(msg)
 	
 	i = 0	# magic
