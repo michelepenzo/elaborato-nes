@@ -26,25 +26,21 @@ def Client():
 	msg = msg[:1024].encode('ascii')
 	cs.send(msg)
 	
-	i = 0	# magic
 	old_x, old_y = 0, 0
 
 	while True:
 		try:	
 			mouse_x, mouse_y = pyautogui.position()
 
-			# too much datas
 			if not( mouse_x == old_x and mouse_y == old_y):
-				# there isn't flush on python3, I do magic
 				msg = '1#' + str(mouse_x) + '#' + str(mouse_y) + '#' + (' '*1024)
+				# there isn't flush method in python3
 				msg = msg[:1024].encode('ascii')			
 				
 				cs.send(msg)
 
 				old_x, old_y = mouse_x, mouse_y
-				i = i+1
-				print(i)
-			
+
 		except (socket.error, KeyboardInterrupt, OSError) as e:
 			print ("\nError Occured.")
 			conn.close()

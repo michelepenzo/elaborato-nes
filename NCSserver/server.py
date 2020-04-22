@@ -52,7 +52,7 @@ def Server():
 		print ("\nError Occured.")
 		conn.close()
 	
-
+	# connected with Android APP
 	if _app:
 		print('connected with Android APP')
 
@@ -101,6 +101,8 @@ def Server():
 				print ("\nError Occured.")
 				conn.close()
 				break
+	
+	# connecter with PC
 	else:
 		i = 0
 		print('connected with PC')
@@ -122,15 +124,13 @@ def Server():
 				print(str(i) + ' ' + cmd[1] + ' ' + cmd[2])
 				x, y = int(cmd[1]), int(cmd[2])				# get position
 				
-				# -------------------
-				# ------ delay ------
+				'''
 				#sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
-				# muovi il mouse
-				# questo è già di per se un ritardo
+				
 				move_x = mouse_x + (x - offset_x) 
 				move_y = mouse_y + (y - offset_y)
 				pyautogui.moveTo(move_x, move_y)
-			
+				'''
 
 			except (socket.error, KeyboardInterrupt, OSError) as e:
 				print ("\nError Occured.")
