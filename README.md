@@ -32,7 +32,7 @@ python3 NCSserver/server.py
 
 5. Eseguire l'applicazione interattiva:
 ```
-python3 circle_gui.py
+python3 gui/circle_gui_scratchpad.py
 ```
 
 
