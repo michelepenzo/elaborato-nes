@@ -13,10 +13,6 @@ def Server():
 	# max size screen
 	MAX_SIZE_X, MAX_SIZE_Y = pyautogui.size()
 	
-	# -------------------
-	# ---- max delay ----
-	MAX_DELAY = 0.1
-
 	# starting values
 	x, y = 0, 0
 	move_x, move_y = 0, 0
@@ -39,104 +35,49 @@ def Server():
 	cmd = list()
 	pyautogui.FAILSAFE = False
 
-	try:
-		data = conn.recv(1024)  # get data
-		if not data:
-			print('no data')
+	while True:
+		try:
 
-		cmd=str(data.decode('ascii')).replace(' ', '')
-
-		_app = 'pc' not in cmd
-
-	except (socket.error, KeyboardInterrupt) as e:
-		print ("\nError Occured.")
-		conn.close()
-	
-	# connected with Android APP
-	if _app:
-		print('connected with Android APP')
-
-		while True:
-			try:
-
-				data = conn.recv(1024)  # get data
-				if not data:
-					print('no data')
-					break
-				
-				cmd=str(data.decode('ascii')).replace(' ', '').split('#')	# split command 
-				
-				x, y = int(cmd[1]), int(cmd[2])				# get position
-				
-				# -------------------
-				# ------ delay ------
-				sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
-				
-				if cmd[0] is '0':   # initial press
-					mouse_x, mouse_y = pyautogui.position()
-					offset_x, offset_y = x, y
-					old_cmd = '0'
-					
-				elif cmd[0] is '1':	# simple movement
-					
-					if old_cmd is '4':
-						move_x = mouse_x + (x - offset_x) 
-						move_y = mouse_y + (y - offset_y)
-						pyautogui.dragTo(move_x, move_y)
-						old_cmd = '4'
-
-					else:
-						move_x = mouse_x + (x - offset_x) 
-						move_y = mouse_y + (y - offset_y)
-						pyautogui.moveTo(move_x, move_y)
-						old_cmd = '1'
-						
-				elif cmd[0] is '4':	# double tap and left button clicked
-					pyautogui.click(pyautogui.position(), clicks=2, button='left')
-					old_cmd = '4'
-				else:
-					print('Bad command')
-				
-			except (socket.error, KeyboardInterrupt, OSError) as e:
-				print ("\nError Occured.")
-				conn.close()
+			data = conn.recv(1024)  # get data
+			if not data:
+				print('no data')
 				break
-	
-	# connecter with PC
-	else:
-		i = 0
-		print('connected with PC')
-
-		while True:
 			
-			mouse_x, mouse_y = pyautogui.position()
-			offset_x, offset_y = x, y
+			cmd=str(data.decode('ascii')).replace(' ', '').split('#')	# split command 
+			
+			x, y = int(cmd[1]), int(cmd[2])				# get position			
+			
+			if cmd[0] is '0':   # initial press
+				mouse_x, mouse_y = pyautogui.position()
+				offset_x, offset_y = x, y
+				old_cmd = '0'
+				
+			elif cmd[0] is '1':	# simple movement
+				
+				if old_cmd is '4':
+					move_x = mouse_x + (x - offset_x) 
+					move_y = mouse_y + (y - offset_y)
+					pyautogui.dragTo(move_x, move_y)
+					old_cmd = '4'
 
-			try:
-				data = conn.recv(1024)  # get data
-				if not data:
-					print('no data')
-					break
-				
-				cmd=str(data.decode('ascii')).replace(' ', '').split('#')	# split command 
-				
-				i = i+1
-				print(str(i) + ' ' + cmd[1] + ' ' + cmd[2])
-				x, y = int(cmd[1]), int(cmd[2])				# get position
-				
-				'''
-				#sleep( uniform(0.1, MAX_DELAY) )	# milliseconds
-				
-				move_x = mouse_x + (x - offset_x) 
-				move_y = mouse_y + (y - offset_y)
-				pyautogui.moveTo(move_x, move_y)
-				'''
-
-			except (socket.error, KeyboardInterrupt, OSError) as e:
-				print ("\nError Occured.")
-				conn.close()
-				break
-
+				else:
+					move_x = mouse_x + (x - offset_x) 
+					move_y = mouse_y + (y - offset_y)
+					pyautogui.moveTo(move_x, move_y)
+					old_cmd = '1'
+					
+			elif cmd[0] is '4':	# double tap and left button clicked
+				pyautogui.click(pyautogui.position(), clicks=2, button='left')
+				old_cmd = '4'
+			else:
+				print('Bad command')
+			
+		except (socket.error, KeyboardInterrupt, OSError) as e:
+			print ("\nError Occured.")
+			conn.close()
+			break
+	
+	
 
 	conn.close()
 

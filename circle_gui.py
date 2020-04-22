@@ -6,12 +6,18 @@ from tkinter import *
 from tkinter.colorchooser import askcolor
 import pyautogui
 from math import sqrt
+from time import sleep
+from random import uniform
 
 class Paint(object):
 
     # default parameters
     default_pen_size=4.0
     default_color='black'
+    
+    # -------------------
+    # ---- max delay ----
+    MAX_DELAY = 0.3
 
     x, y = 960,500     # starting coordinate of circle --> not the center of monitor
     radius = 350 - default_pen_size
@@ -67,8 +73,9 @@ class Paint(object):
     
     # method for writing on whiteboard
     def paint(self, event):
-    
+        
         if self.old_x and self.old_y:
+            sleep( uniform(0.1, self.MAX_DELAY) )    # milliseconds
             self.c.create_line(self.old_x, self.old_y, event.x, event.y, width=self.line_width, fill=self.default_color, capstyle=ROUND, smooth=TRUE, splinesteps=36)
 
         self.old_x = event.x

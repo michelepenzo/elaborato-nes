@@ -6,10 +6,9 @@ Esmpio di NCS, svolto come progetto per il corso NES. <br>
 
 - Server:
 	- SO Linux <br>
-	- python 3.7
+	- Python 3.7
 - Client:
-	- Smartphone Android _oppure_<br>
-	- SO Linux con python 3.7
+	- Smartphone Android
 - Dispositivi connessi alla stessa rete WiFi. <br>
 
 ## Funzionamento
@@ -29,13 +28,7 @@ cd elaborato-nes
 python3 NCSserver/server.py
 ```
 
-4. Per il __client__:
-	- da *smartphone Android* installare il file ``client_app.apk`` che si trova in ``NCSclient_interface``, aprirlo e inserire l'indirizzo IP ottenuto dal server.
-	- da *PC* aprire un terminale ed eseguire:
-		```
-		cd NCSclient_interface
-		python3 client_pc.py
-		```
+4. Per il __client__ da *smartphone Android* installare il file ``client_app.apk``, aprirlo e inserire l'indirizzo IP ottenuto dal server.
 
 5. Eseguire l'applicazione interattiva:
 ```
