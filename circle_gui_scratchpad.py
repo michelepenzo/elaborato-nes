@@ -27,7 +27,7 @@ class Paint(object):
 
     # right shift, from scratchpad to circle
     right_shift = x2
-    
+
     # whiteboard
     def __init__(self):
         self.root=Tk()
@@ -59,9 +59,8 @@ class Paint(object):
         # getting the coordinates 
         xr1, yr1 ,xr2 ,yr2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
         self.c.create_oval(xr1, yr1, xr2, yr2, outline="#ff0000", fill="#add4d9", width=self.default_pen_size)
-
-        # TODO add label
-        self.c.create_rectangle(self.x1, self.y1, self.x2, self.y2, outline="#000000", fill="#bfbfbf", width=self.default_pen_size)
+        
+        self.c.create_rectangle(self.x1, self.y1, self.x2, self.y2, outline="#000000", fill="#bfbfbf", width=self.default_pen_size, text='Write here')
         
         self.setup()
         
