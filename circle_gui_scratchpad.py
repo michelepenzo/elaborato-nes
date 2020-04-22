@@ -18,9 +18,16 @@ class Paint(object):
     # ---- max delay ----
     MAX_DELAY = 0.3
 
-    x, y = 960,500     # starting coordinate of circle --> not the center of monitor
-    radius = 350 - default_pen_size
+    # starting coordinate of circle --> not the center of monitor
+    x, y = 1300,500     
+    radius = 300 - default_pen_size
 
+    # coordinates of rectangle
+    x1, y1 ,x2 ,y2 = 100, y-400, 800, y+400
+
+    # right shift, from scratchpad to circle
+    right_shift = x2
+    
     # whiteboard
     def __init__(self):
         self.root=Tk()
@@ -50,8 +57,11 @@ class Paint(object):
         self.exit_button.grid(sticky = W, row=0, column=2) 
 
         # getting the coordinates 
-        x1, y1 ,x2 ,y2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
-        self.c.create_oval(x1, y1, x2, y2, outline="#3427a3", fill="#add4d9", width=self.default_pen_size)
+        xr1, yr1 ,xr2 ,yr2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
+        self.c.create_oval(xr1, yr1, xr2, yr2, outline="#ff0000", fill="#add4d9", width=self.default_pen_size)
+
+        # TODO add label
+        self.c.create_rectangle(self.x1, self.y1, self.x2, self.y2, outline="#000000", fill="#bfbfbf", width=self.default_pen_size)
         
         self.setup()
         
@@ -75,13 +85,14 @@ class Paint(object):
         
         if self.old_x and self.old_y:
             sleep( self.MAX_DELAY )    # milliseconds
-            self.c.create_line(self.old_x, self.old_y, event.x, event.y, width=self.line_width, fill=self.default_color, capstyle=ROUND, smooth=TRUE, splinesteps=36)
+            # TODO write in the correct position
+            self.c.create_line(self.old_x + self.right_shift, self.old_y, event.x + self.right_shift, event.y, width=self.line_width, fill=self.default_color, capstyle=ROUND, smooth=TRUE, splinesteps=36)
 
-        self.old_x = event.x
+        self.old_x = event.x 
         self.old_y = event.y
         
         # calculating distance from center
-        distance = sqrt( (self.old_x - self.x)**2 + (self.old_y - self.y)**2 ) - self.radius
+        distance = sqrt( (self.old_x + self.right_shift - self.x)**2 + (self.old_y - self.y)**2 ) - self.radius
 
         self.label_error['text'] = round(distance,2)
 
