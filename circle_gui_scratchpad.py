@@ -16,7 +16,7 @@ class Paint(object):
     
     # -------------------
     # ---- max delay ----
-    MAX_DELAY = 0.3
+    DELAY = 0.3
 
     # starting coordinate of circle --> not the center of monitor
     x, y = 1300,500     
@@ -26,7 +26,7 @@ class Paint(object):
     x1, y1 ,x2 ,y2 = 100, y-400, 800, y+400
 
     # right shift, from scratchpad to circle
-    right_shift = x2
+    right_shift = 850
 
     # whiteboard
     def __init__(self):
@@ -59,9 +59,11 @@ class Paint(object):
         # getting the coordinates 
         xr1, yr1 ,xr2 ,yr2 = self.x-self.radius, self.y-self.radius, self.x+self.radius, self.y+self.radius
         self.c.create_oval(xr1, yr1, xr2, yr2, outline="#ff0000", fill="#add4d9", width=self.default_pen_size)
+
+        self.c.create_rectangle(self.x1, self.y1, self.x2, self.y2, outline="#000000", fill="#bfbfbf", width=self.default_pen_size)
         
-        self.c.create_rectangle(self.x1, self.y1, self.x2, self.y2, outline="#000000", fill="#bfbfbf", width=self.default_pen_size, text='Write here')
-        
+        center_x = self.x1 + ((self.x2 - self.x1)/2 ) 
+        mylabel = self.c.create_text((center_x, self.y1-20), text="Disegna qui sotto!", font=("Helvetica", 16))
         self.setup()
         
         self.root.mainloop()
@@ -83,8 +85,7 @@ class Paint(object):
     def paint(self, event):
         
         if self.old_x and self.old_y:
-            sleep( self.MAX_DELAY )    # milliseconds
-            # TODO write in the correct position
+            sleep( self.DELAY )    # DELAY in milliseconds
             self.c.create_line(self.old_x + self.right_shift, self.old_y, event.x + self.right_shift, event.y, width=self.line_width, fill=self.default_color, capstyle=ROUND, smooth=TRUE, splinesteps=36)
 
         self.old_x = event.x 
